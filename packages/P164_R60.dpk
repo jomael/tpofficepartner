@@ -1,0 +1,79 @@
+(* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is TurboPower OfficePartner
+ *
+ * The Initial Developer of the Original Code is
+ * TurboPower Software
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2000-2002
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *
+ * ***** END LICENSE BLOCK ***** *)
+
+package P164_R60;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS OFF}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS OFF}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'TurboPower OfficePartner 1.64 Run-time package - VCL60'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+{$DEFINE VERSION6}
+
+requires
+  vcl,
+  vcldb;
+
+contains
+  OpDbOfc in '..\source\OpDbOfc.pas',
+  OpDbOlk in '..\source\OpDbOlk.pas',
+  OpXLXP in '..\source\OpXLXP.pas',
+  OpExcel in '..\source\OpExcel.pas',
+  OpMSO in '..\source\OpMSO.pas',
+  OpOfcXP in '..\source\OpOfcXP.pas',
+  OpConst in '..\source\OpConst.pas',
+  OpEvents in '..\source\OpEvents.pas',
+  OpModels in '..\source\OpModels.pas',
+  OpShared in '..\source\OpShared.pas',
+  OpOlkXP in '..\source\OpOlkXP.pas',
+  OpOlk98 in '..\source\OpOlk98.pas',
+  OpOutlk in '..\source\OpOutlk.pas',
+  OpPptXP in '..\source\OpPptXP.pas',
+  OpPower in '..\source\OpPower.pas',
+  OpVbIdXP in '..\source\OpVbIdXP.pas',
+  OpWrdXP in '..\source\OpWrdXP.pas',
+  OpWord in '..\source\OpWord.pas';
+
+end.

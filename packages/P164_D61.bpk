@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="P164_D61.bpl"/>
+    <OBJFILES value="P164_D61.obj OpDesign.obj OpAbout.obj"/>
+    <RESFILES value="P164_D61.res OpDesign.dcr"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES)"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value="vcldb.lib"/>
+    <SPARELIBS value="rtl.lib vcl.lib vcldb.lib"/>
+    <PACKAGES value="rtl.bpi vcl.bpi vclx.bpi designide.bpi P164_R61.bpi"/>
+    <PATHCPP value=".;"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="BCB;CBuilder;Version6"/>
+    <SYSDEFINES value="NO_STRICT;_VIS_NOLIB;USEPACKAGES"/>
+    <MAINSOURCE value="P164_D61.cpp"/>
+    <INCLUDEPATH value="$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\lib\release"/>
+    <WARNINGS value="-w-par -w-8027 -w-8026"/>
+    <WARNOPTSTR value=""/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I$(BCB)\include -I$(BCB)\include\vcl -src_suffix cpp -DBCB -DCBuilder 
+      -DVersion6 -boa"/>
+    <CFLAG1 value="-O2 -Vx -Ve -Tkh30000 -X- -a8 -b- -k- -vi -c -tWM"/>
+    <PFLAGS value="-$Y- -$L- -$D- -$A8 -v -M -JPHNE -LUDesignide"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zn"/>
+    <LFLAGS value="-D&quot;TurboPower OfficePartner 1.64 Design-time package - VCL61&quot; -aa -Tpp 
+      -Gpd -x -Gn -Gl -Gi"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0pkg32.obj $(PACKAGES) sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="P164_D61.cpp" FORMNAME="" UNITNAME="P164_D61" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="P164_D61.res" FORMNAME="" UNITNAME="P164_D61.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\source\OpDesign.pas" FORMNAME="" UNITNAME="OpDesign" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\source\OpAbout.pas" FORMNAME="" UNITNAME="OpAbout" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\source\OpDesign.dcr" FORMNAME="" UNITNAME="OpDesign" CONTAINERID="DcrTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\Bcb6\Lib\rtl.bpi" FORMNAME="" UNITNAME="rtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\Bcb6\Lib\vcl.bpi" FORMNAME="" UNITNAME="vcl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\Bcb6\Lib\vclx.bpi" FORMNAME="" UNITNAME="vclx" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="D:\Bcb6\Lib\designide.bpi" FORMNAME="" UNITNAME="designide" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="P164_R61.bpi" FORMNAME="" UNITNAME="P164_R61" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=0
+MajorVer=1
+MinorVer=6
+Release=4
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1033
+CodePage=1252
+
+[Version Info Keys]
+CompanyName=TurboPower Software
+FileDescription=OfficePartner Components
+FileVersion=1.6.4.0
+InternalName=
+LegalCopyright=TurboPower Software 2002
+LegalTrademarks=
+OriginalFilename=
+ProductName=OfficePartner
+ProductVersion=1.64
+Comments=
+
+[Excluded Packages]
+D:\Borland\CBuilder6\Projects\Bpl\K101_D61.BPL=TurboPower ShellShock 1.01 Designtime package - VLC61
+
+[HistoryLists\hlIncludePath]
+Count=1
+Item0=$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=9
+Item0=$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\lib\release
+Item1=;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\lib\release
+Item2=;;;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\lib\release
+Item3=;;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\lib\release
+Item4=;;;;;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\lib\release
+Item5=;;;;;;;;;;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\lib\release
+Item6=;$(BCB)\lib\obj;$(BCB)\lib
+Item7=$(BCB)\lib\obj;$(BCB)\lib
+Item8=..\officepartner;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=5
+Item0=BCB;CBuilder;Version6
+Item1=BCB;CBuilder
+Item2=BCB
+Item3=USEPACKAGES
+Item4=_RTLDLL;USEPACKAGES
+
+[HistoryLists\hlIntOutputDir]
+Count=1
+Item0=c:\OfficePartner
+
+[HistoryLists\hlFinalOutputDir]
+Count=1
+Item0=c:\OfficePartner
+
+[HistoryLists\hIBPIOutputDir]
+Count=2
+Item0=c:\OfficePartner\
+Item1=c:\OfficePartner
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+
+[Linker]
+LibPrefix=
+LibSuffix=
+LibVersion=
+  </IDEOPTIONS>
+</PROJECT>
