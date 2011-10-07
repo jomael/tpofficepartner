@@ -30,34 +30,7 @@ unit OpShared;
 interface
 
 uses SysUtils, Classes, Forms, ActiveX, OpEvents
-     {$IFDEF VERSION7},Variants{$ENDIF};
-
-{$IFDEF VERSION3}
-var
-  {: Introduced for Delphi3/CBuilder3 support.}
-  EmptyParam: OLEVariant;
-
-type
-  PControlData2 = ^TControlData2;
-  TControlData2 = record
-    ClassID: TGUID;
-    EventIID: TGUID;
-    EventCount: Longint;
-    EventDispIDs: Pointer;
-    LicenseKey: Pointer;
-    Flags: Cardinal;
-    Version: Integer;
-    FontCount: Integer;
-    FontIDs: PDispIDList;
-    PictureCount: Integer;
-    PictureIDs: PDispIDList;
-    Reserved: Integer;
-    InstanceCount: Integer;
-    EnumPropDescs: TList;
-    FirstEventOfs: Cardinal;
-  end;
-
-{$ENDIF}
+     {$IFNDEF VER140}, Variants{$ENDIF};
 
 type
   TOpCoCreateInstanceExProc = function (const clsid: TCLSID;
@@ -944,11 +917,6 @@ asm
         POP     EBX
 end;
 
-procedure OpVarClear(var V : Variant);
-begin
-  System.VarClear(V);
-end;
-
 procedure OpDispCallByID(Result: Pointer; const Dispatch: IDispatch;
   DispDesc: PDispDesc; Params: Pointer); cdecl;
 asm
@@ -1029,12 +997,11 @@ asm
 
 @ResVariant:
         MOV     EAX,EBX
-        {//$IFDEF VERSION7}
-        //  CALL    Variants.@VarClear
-        {//$ELSE}
-        //  CALL    System.@VarClear
-          CALL    OpVarClear
-        {//$ENDIF}
+		{$IFDEF VER140}
+		CALL    System.@VarClear
+		{$ELSE}
+        CALL    Variants.@VarClear
+        {$ENDIF}
         MOV     EAX,[ESP]
         MOV     [EBX],EAX
         MOV     EAX,[ESP+4]
@@ -1063,10 +1030,6 @@ end;
 
 initialization
   LoadDCOMProcs;
-{$IFDEF VERSION3}
-  TVarData(EmptyParam).VType := varError;
-  TVarData(EmptyParam).VError := $80020004; {DISP_E_PARAMNOTFOUND}
-{$ENDIF}
   DispCallByIdProc := @OpDispCallById;
   OleInitialize(nil);
 finalization

@@ -818,6 +818,13 @@ begin
   end;
 end;
 
+{$IF NOT DECLARED(CharInSet)}
+function CharInSet(C: Char; const CharSet: TSysCharSet): Boolean;
+begin
+  Result := C in CharSet;
+end;
+{$IFEND}
+
 function TOpContactsDataSet.FindMatchingFolder(Fldrs: Folders): Items;
 var
   I, CharPos, PathLen, NameLen: Integer;
@@ -829,13 +836,13 @@ begin
   begin
     // If leading character is a slash, then assume they are providing
     // the full path name to the Outlook folder
-    if (FListName[1] in ['/', '\']) and (Length(FListName) > 1) then
+    if CharInSet(FListName[1], ['/', '\']) and (Length(FListName) > 1) then
     begin
       CharPos := 2;
       PathLen := Length(FListName);
       for I := CharPos to PathLen do
       begin
-        if (I = PathLen) or (FListName[I] in ['/', '\']) then
+        if (I = PathLen) or CharInSet(FListName[I], ['/', '\']) then
         begin
           if I = PathLen then NameLen := PathLen
           else NameLen := I - CharPos;
@@ -908,18 +915,8 @@ begin
       for I := 0 to Cnt - 1 do
       begin
         Prop := PList[I];
-        {$IFDEF VER110}
-        with TFieldDef.Create(FieldDefs) do
-        begin
-          Name := Prop^.Name;
-          DataType := FieldTypes[Prop^.PropType^.Kind];
-          Size := StringFieldSize;
-          FieldNo := 1;
-        end;
-        {$ELSE}
-        TFieldDef.Create(FieldDefs, Prop^.Name, FieldTypes[Prop^.PropType^.Kind],
+        TFieldDef.Create(FieldDefs, string(Prop^.Name), FieldTypes[Prop^.PropType^.Kind],
           StringFieldSize, False, 1);
-        {$ENDIF}
       end;
     finally
       FreeMem(PList);

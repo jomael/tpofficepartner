@@ -53,61 +53,12 @@
 
 { Compiler stoppers for unsupported compilers }
 
-{$IFDEF VER80}
-  !!! OfficePartner does not support Delphi 1
+{$IFNDEF CONDITIONALEXPRESSIONS}
+  !!! OfficePartner does not support Delphi 5 or earlier
 {$ENDIF}
 
-{$IFDEF VER90}
-  !!! OfficePartner does not support Delphi 2
-{$ENDIF}
-
-{$IFDEF VER93}
-  !!! OfficePartner does not support C++Builder 1
-{$ENDIF}
-
-
-
-{$IFDEF VER100}              { Delphi 3 }
-  {$DEFINE VERSION3}
-{$ENDIF}
-
-{$IFDEF VER110}              { C++ Builder 3 }
+{$IFDEF BCB}
   {$ObjExportAll On}
   {$DEFINE CBuilder}
-  {$DEFINE VERSION3}
 {$ENDIF}
-
-{$IFDEF VER120}              { Delphi 4 }
-  {$DEFINE VERSION4}
-{$ENDIF}
-
-{$IFDEF VER125}              { C++ Builder 4 }
-  {$ObjExportAll On}
-  {$DEFINE CBuilder}
-  {$DEFINE VERSION4}
-{$ENDIF}
-
-{$IFDEF VER130}              { Delphi 5 & C++ Builder 5 }
-  {$DEFINE VERSION5}
- {$IFDEF BCB}
-  {$ObjExportAll On}
-  {$DEFINE CBuilder}
- {$ENDIF}
-{$ENDIF}
-
-
-{$IFDEF VER140}
-  {$IFNDEF LINUX}
-    {$DEFINE VERSION6}
-    {$DEFINE DCC6ORLATER}
-  {$ENDIF}
-{$ENDIF}
-
-{$IFDEF VER150}
-  {$IFNDEF LINUX}
-    {$DEFINE VERSION7}
-    {$DEFINE DCC6ORLATER}
-  {$ENDIF}
-{$ENDIF}
-
 

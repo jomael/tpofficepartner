@@ -102,29 +102,17 @@ type
     function FindNode(Collection : TCollection): TTreeNode;
     procedure CustomItemClick(Sender: TObject);
   protected
-    {$IFDEF VERSION3}
-    Designer : TDesigner;
-    {$ELSE}
     Designer : IDesigner;
-    {$ENDIF}
     procedure Activated;
     function UniqueName(Component: TComponent): string;
   public
     { Public declarations }
     destructor Destroy; override;
 
-    {$IFDEF VERSION3}
-    class procedure CreateEditor(ADesigner : TFormDesigner; Component: TComponent; Collection: TCollection);
-    {$ELSE}
-        class procedure CreateEditor(ADesigner : IDesigner; Component: TComponent; Collection: TCollection);
-    {$ENDIF}
+    class procedure CreateEditor(ADesigner : IDesigner; Component: TComponent; Collection: TCollection);
     class procedure FreeEditor;
 
-    {$IFDEF VERSION3}
     procedure ComponentDeleted(Component: TComponent);
-    {$ELSE}
-        procedure ComponentDeleted(Component: TComponent);
-    {$ENDIF}
 
     function GetEditState: TEditState;
     procedure EditAction(Action: TEditAction);
@@ -162,11 +150,7 @@ begin
   FormModified;
 end;
 
-{$IFDEF VERSION3}
-class procedure TfrmCollectionEditor.CreateEditor(ADesigner : TFormDesigner; Component : TComponent; Collection: TCollection);
-{$ELSE}
-    class procedure TfrmCollectionEditor.CreateEditor(ADesigner : IDesigner; Component: TComponent; Collection: TCollection);
-{$ENDIF}
+class procedure TfrmCollectionEditor.CreateEditor(ADesigner : IDesigner; Component: TComponent; Collection: TCollection);
 begin
   if not assigned(Singleton) then
     Singleton := TfrmCollectionEditor.Create(Application);
@@ -194,11 +178,7 @@ procedure TfrmCollectionEditor.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   if FComponent <> nil then
-    {$IFDEF VERSION3}
-    (Designer as TFormDesigner).SelectComponent((FCollection as TOpNestedCollection).RootComponent);
-    {$ELSE}
-       Designer.SelectComponent((FCollection as TOpNestedCollection).RootComponent);
-    {$ENDIF}
+    Designer.SelectComponent((FCollection as TOpNestedCollection).RootComponent);
   action := caFree;
   Singleton := nil;
 end;
@@ -221,20 +201,12 @@ begin
   begin
     if pNodeData(Node.Data)^.NodeType = ntItem then begin
         stsbrName.SimpleText := GetNodeItem(Node).GetNamePath;
-        {$IFDEF VERSION3}
-        (Designer as TFormDesigner).SelectComponent(pNodeData(Node.Data)^.Item);
-        {$ELSE}
-            Designer.SelectComponent(pNodeData(Node.Data)^.Item);
-        {$ENDIF}
+        Designer.SelectComponent(pNodeData(Node.Data)^.Item);
         ((pNodeData(Node.Data)^.Item) as TOpNestedCollectionItem).Activate;
       end
     else begin
       stsbrName.SimpleText := pNodeData(Node.Data)^.Collection.GetNamePath;
-      {$IFDEF VERSION3}
-      (Designer as TFormDesigner).SelectComponent(pNodeData(Node.Data)^.Collection);
-      {$ELSE}
-          Designer.SelectComponent(pNodeData(Node.Data)^.Collection);
-      {$ENDIF}
+      Designer.SelectComponent(pNodeData(Node.Data)^.Collection);
     end;
   end;
   SetButtonState;
@@ -242,28 +214,15 @@ end;
 
 //Designer signatures changed in Delphi 4
 
-{$IFDEF VERSION3}
 procedure TfrmCollectionEditor.ComponentDeleted(Component: TComponent);
 begin
-//  inherited ComponentDeleted(Component);   //does nothing.
+  //inherited ComponentDeleted(Component);   //does nothing.
   if assigned(Component) then
   begin
     if Component = FComponent then
       Singleton.FreeEditor;
   end;
 end;
-{$ELSE}
-  procedure TfrmCollectionEditor.ComponentDeleted(Component: TComponent);
-  begin
-    //inherited ComponentDeleted(Component);   //does nothing.
-    if assigned(Component) then
-    begin
-      if Component = FComponent then
-        Singleton.FreeEditor;
-    end;
-  end;
-
-{$ENDIF}
 
 procedure TfrmCollectionEditor.EditAction(Action: TEditAction);
 begin
