@@ -24,10 +24,8 @@
  * ***** END LICENSE BLOCK ***** *)
 {$I OPDEFINE.INC}
 
-{$IFDEF DCC6ORLATER}
   {$WARN SYMBOL_PLATFORM OFF}
   {$WARN SYMBOL_DEPRECATED OFF}
-{$ENDIF}
 
 unit OpWord;
 
@@ -36,8 +34,8 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   OpWrdXP, OpOfcXP,                                                  {!!.62}
-  OpMSO, OpShared, ActiveX, OpModels, OpOutlk, OpDbOfc
-  {$IFDEF DCC6ORLATER}, Variants {$ENDIF} ;
+  OpMSO, OpShared, ActiveX, OpModels, OpOutlk, OpDbOfc,
+  Variants ;
 
 type
  //: Name conflict with Excel Window
@@ -1090,15 +1088,9 @@ begin
   if (Connected) then
   begin
     case Value of
-    {$IFDEF DCC6ORLATER}
       wdalNone: FServer.DisplayAlerts := Int64($00000000);
       wdalMessageBox: FServer.DisplayAlerts:= Int64($FFFFFFFE);
       wdalAll: FServer.DisplayAlerts:= Int64($FFFFFFFF);
-    {$ELSE}
-      wdalNone: FServer.DisplayAlerts := Integer($00000000);
-      wdalMessageBox: FServer.DisplayAlerts:= Integer($FFFFFFFE);
-      wdalAll: FServer.DisplayAlerts:= Integer($FFFFFFFF);
-    {$ENDIF}
     end;
   end;
   FDisplayAlerts := Value;
@@ -2357,13 +2349,8 @@ begin
     Intf:= TOpWord(RootComponent).FServer.Documents.OpenOld(DocFileVariant,
       emptyParam, emptyParam, emptyParam, emptyParam, emptyParam,
       emptyParam, emptyParam, emptyParam, emptyParam);
-    {$IFDEF DCC6ORLATER}
     if (AsDocument.MailMerge.MainDocumentType) <>
       Int64(OpWrdXP.wdNotAMergeDocument) then                        {!!.62}
-    {$ELSE}
-    if (AsDocument.MailMerge.MainDocumentType) <>
-      Integer(OpWrdXP.wdNotAMergeDocument) then                      {!!.62}
-    {$ENDIF}
       FMailMerge.SetDoc(AsDocument);
     if AsDocument.Bookmarks.Count > 0 then
     begin

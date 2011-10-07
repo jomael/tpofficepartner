@@ -25,9 +25,7 @@
 
 {$I OPDEFINE.INC}
 
-{$IFDEF DCC6ORLATER}
   {$WARN SYMBOL_PLATFORM OFF}
-{$ENDIF}
 
 unit OpExcel;
 
@@ -38,7 +36,7 @@ uses Windows, Messages, SysUtils, Classes, stdctrls, Graphics, Controls, Forms,
   OpXLXP,                                                            {!!.62}
   OpShared, OpModels,
   OpOfcXP,                                                           {!!.62}
-  OleCtrls {$IFDEF DCC6ORLATER}, Variants {$ENDIF};
+  OleCtrls,Variants;
 
 type
   {: Use ExcelRange to avoid name clashes with Word Ranges}
@@ -1046,15 +1044,9 @@ begin
   if (Connected)  then
   begin
     case Value of
-    {$IFDEF DCC6ORLATER}
       xlwsNormal: FServer.WindowState[0] := Int64(xlNormal);
       xlwsMinimized: FServer.WindowState[0] := Int64(xlMinimized);
       xlwsMaximized: FServer.WindowState[0] := Int64(xlMaximized);
-    {$ELSE}
-      xlwsNormal: FServer.WindowState[0] := Integer(xlNormal);
-      xlwsMinimized: FServer.WindowState[0] := Integer(xlMinimized);
-      xlwsMaximized: FServer.WindowState[0] := Integer(xlMaximized);
-    {$ENDIF}
     end;
   end;
   FWindowState := Value;

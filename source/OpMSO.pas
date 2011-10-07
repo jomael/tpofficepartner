@@ -179,11 +179,7 @@ begin
         else if (TOpAssistant(GetOwner).FOfficeComponent is TOpWord) then
          (FCOMBalloon.Application_ as OpWrdXP.Application_).Visible:= True {!!.62}
         else if (TOpAssistant(GetOwner).FOfficeComponent is TOpPowerPoint) then
-        {$IFDEF DCC6ORLATER}
          (FCOMBalloon.Application_ as OpPptXP.Application_).Visible:= Int64(OpOfcXP.msoTrue);  {!!.62}
-        {$ELSE}
-         (FCOMBalloon.Application_ as OpPptXP.Application_).Visible:= Integer(OpOfcXP.msoTrue);  {!!.62}
-        {$ENDIF}
       end;
       FCOMBalloon.Show;
     end;

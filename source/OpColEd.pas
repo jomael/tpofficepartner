@@ -32,11 +32,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Menus, ComCtrls, OpDesign,
-  {$IFDEF DCC6ORLATER}
     DesignIntf, DesignEditors, VCLEditors, RTLConsts,
-  {$ELSE}
-    DsgnIntf,
-  {$ENDIF}
   OpShared,
   {$IFNDEF VERSION3} ImgList,{$ENDIF} ToolWin;
 
@@ -120,22 +116,14 @@ type
     {$IFDEF VERSION3}
     class procedure CreateEditor(ADesigner : TFormDesigner; Component: TComponent; Collection: TCollection);
     {$ELSE}
-      {$IFDEF DCC6ORLATER}
         class procedure CreateEditor(ADesigner : IDesigner; Component: TComponent; Collection: TCollection);
-      {$ELSE}
-      class procedure CreateEditor(ADesigner : IFormDesigner; Component: TComponent; Collection: TCollection);
-      {$ENDIF}
     {$ENDIF}
     class procedure FreeEditor;
 
     {$IFDEF VERSION3}
     procedure ComponentDeleted(Component: TComponent);
     {$ELSE}
-      {$IFDEF DCC6ORLATER}
         procedure ComponentDeleted(Component: TComponent);
-      {$ELSE}
-      procedure ComponentDeleted(Component: IPersistent);
-      {$ENDIF}
     {$ENDIF}
 
     function GetEditState: TEditState;
@@ -177,11 +165,7 @@ end;
 {$IFDEF VERSION3}
 class procedure TfrmCollectionEditor.CreateEditor(ADesigner : TFormDesigner; Component : TComponent; Collection: TCollection);
 {$ELSE}
-  {$IFDEF DCC6ORLATER}
     class procedure TfrmCollectionEditor.CreateEditor(ADesigner : IDesigner; Component: TComponent; Collection: TCollection);
-  {$ELSE}
-  class procedure TfrmCollectionEditor.CreateEditor(ADesigner : IFormDesigner; Component : TComponent; Collection: TCollection);
-  {$ENDIF}
 {$ENDIF}
 begin
   if not assigned(Singleton) then
@@ -213,11 +197,7 @@ begin
     {$IFDEF VERSION3}
     (Designer as TFormDesigner).SelectComponent((FCollection as TOpNestedCollection).RootComponent);
     {$ELSE}
-      {$IFDEF DCC6ORLATER}
        Designer.SelectComponent((FCollection as TOpNestedCollection).RootComponent);
-      {$ELSE}
-      (Designer as IFormDesigner).SelectComponent((FCollection as TOpNestedCollection).RootComponent);
-      {$ENDIF}
     {$ENDIF}
   action := caFree;
   Singleton := nil;
@@ -244,11 +224,7 @@ begin
         {$IFDEF VERSION3}
         (Designer as TFormDesigner).SelectComponent(pNodeData(Node.Data)^.Item);
         {$ELSE}
-          {$IFDEF DCC6ORLATER}
             Designer.SelectComponent(pNodeData(Node.Data)^.Item);
-          {$ELSE}
-          (Designer as IFormDesigner).SelectComponent(pNodeData(Node.Data)^.Item);
-          {$ENDIF}
         {$ENDIF}
         ((pNodeData(Node.Data)^.Item) as TOpNestedCollectionItem).Activate;
       end
@@ -257,11 +233,7 @@ begin
       {$IFDEF VERSION3}
       (Designer as TFormDesigner).SelectComponent(pNodeData(Node.Data)^.Collection);
       {$ELSE}
-        {$IFDEF DCC6ORLATER}
           Designer.SelectComponent(pNodeData(Node.Data)^.Collection);
-        {$ELSE}
-        (Designer as IFormDesigner).SelectComponent(pNodeData(Node.Data)^.Collection);
-        {$ENDIF}
       {$ENDIF}
     end;
   end;
@@ -281,7 +253,6 @@ begin
   end;
 end;
 {$ELSE}
-  {$IFDEF DCC6ORLATER}
   procedure TfrmCollectionEditor.ComponentDeleted(Component: TComponent);
   begin
     //inherited ComponentDeleted(Component);   //does nothing.
@@ -292,18 +263,6 @@ end;
     end;
   end;
 
-  {$ELSE}
-
-  procedure TfrmCollectionEditor.ComponentDeleted(Component: IPersistent);
-  begin
-    //inherited ComponentDeleted(Component);   //does nothing.
-    if assigned(Component) then
-    begin
-      if Component.Equals(MakeIPersistent(FComponent)) then
-        Singleton.FreeEditor;
-    end;
-  end;
-  {$ENDIF}
 {$ENDIF}
 
 procedure TfrmCollectionEditor.EditAction(Action: TEditAction);
@@ -312,18 +271,11 @@ end;
 
 procedure TfrmCollectionEditor.FormClosed(AForm: TCustomForm);
 begin
-  {$IFDEF DCC6ORLATER}
     {???}
     if (AForm.Name = Name) then begin
       FComponent := nil;
       Singleton.FreeEditor;
     end;
-  {$ELSE}
-    if Designer.Form = AForm then begin
-      FComponent := nil;
-      Singleton.FreeEditor;
-    end;
-  {$ENDIF}  
 end;
 
 procedure TfrmCollectionEditor.FormModified;
@@ -528,11 +480,6 @@ var
 begin
   Msg.Msg := WM_Activate;
   Msg.WParam := 1;
-  {$IFDEF DCC6ORLATER}
-    {!!!}
-  {$ELSE}
-    Designer.IsDesignMsg(Designer.Form,Msg);
-  {$ENDIF}
 end;
 
 procedure TfrmCollectionEditor.trvCollectionKeyDown(Sender: TObject;

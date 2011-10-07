@@ -78,11 +78,11 @@ type
     procedure SetListSource(const Value: TContactListSource);
     procedure SetListName(const Value: string);
   protected
-    function AllocRecordBuffer: PChar; override;
-    procedure FreeRecordBuffer(var Buffer: PChar); override;
-    procedure GetBookmarkData(Buffer: PChar; Data: Pointer); override;
-    function GetBookmarkFlag(Buffer: PChar): TBookmarkFlag; override;
-    function GetRecord(Buffer: PChar; GetMode: TGetMode; DoCheck: Boolean): TGetResult; override;
+    function AllocRecordBuffer: TRecordBuffer; override;
+    procedure FreeRecordBuffer(var Buffer: TRecordBuffer); override;
+    procedure GetBookmarkData(Buffer: TRecordBuffer; Data: Pointer); override;
+    function GetBookmarkFlag(Buffer: TRecordBuffer): TBookmarkFlag; override;
+    function GetRecord(Buffer: TRecordBuffer; GetMode: TGetMode; DoCheck: Boolean): TGetResult; override;
     function GetRecordCount: Integer; override;
     function GetRecNo: Integer; override;
     function GetRecordSize: Word; override;
@@ -93,15 +93,15 @@ type
     procedure InternalGotoBookmark(Bookmark: Pointer); override;
     procedure InternalHandleException; override;
     procedure InternalInitFieldDefs; override;
-    procedure InternalInitRecord(Buffer: PChar); override;
+    procedure InternalInitRecord(Buffer: TRecordBuffer); override;
     procedure InternalLast; override;
     procedure InternalOpen; override;
     procedure InternalPost; override;
-    procedure InternalSetToRecord(Buffer: PChar); override;
+    procedure InternalSetToRecord(Buffer: TRecordBuffer); override;
     function IsCursorOpen: Boolean; override;
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    procedure SetBookmarkFlag(Buffer: PChar; Value: TBookmarkFlag); override;
-    procedure SetBookmarkData(Buffer: PChar; Data: Pointer); override;
+    procedure SetBookmarkFlag(Buffer: TRecordBuffer; Value: TBookmarkFlag); override;
+    procedure SetBookmarkData(Buffer: TRecordBuffer; Data: Pointer); override;
     procedure SetFieldData(Field: TField; Buffer: Pointer); override;
     procedure SetRecNo(Value: Integer); override;
   public
@@ -430,13 +430,13 @@ begin
 {$ENDIF}
 end;
 
-function TOpContactsDataSet.AllocRecordBuffer: PChar;
+function TOpContactsDataSet.AllocRecordBuffer: TRecordBuffer;
 begin
   Result := AllocMem(SizeOf(TContactRec));
   InitializeRecordBuffer(Result);
 end;
 
-procedure TOpContactsDataSet.FreeRecordBuffer(var Buffer: PChar);
+procedure TOpContactsDataSet.FreeRecordBuffer(var Buffer: TRecordBuffer);
 var
   I: Integer;
   L: TList;
@@ -450,12 +450,12 @@ begin
   Buffer := nil;
 end;
 
-procedure TOpContactsDataSet.GetBookmarkData(Buffer: PChar; Data: Pointer);
+procedure TOpContactsDataSet.GetBookmarkData(Buffer: TRecordBuffer; Data: Pointer);
 begin
   PInteger(Data)^ := PContactRec(Buffer)^.Idx;
 end;
 
-function TOpContactsDataSet.GetBookmarkFlag(Buffer: PChar): TBookmarkFlag;
+function TOpContactsDataSet.GetBookmarkFlag(Buffer: TRecordBuffer): TBookmarkFlag;
 begin
   Result := PContactRec(Buffer)^.BMFlag;
 end;
@@ -495,7 +495,7 @@ begin
     Result := FRecordPos + 1;
 end;
 
-function TOpContactsDataSet.GetRecord(Buffer: PChar; GetMode: TGetMode;
+function TOpContactsDataSet.GetRecord(Buffer: TRecordBuffer; GetMode: TGetMode;
   DoCheck: Boolean): TGetResult;
 var
   Item: _ContactItem;
@@ -611,7 +611,7 @@ begin
       ContactKindArray[I].CreateFieldDefsFromProps(FieldDefs);
 end;
 
-procedure TOpContactsDataSet.InternalInitRecord(Buffer: PChar);
+procedure TOpContactsDataSet.InternalInitRecord(Buffer: TRecordBuffer);
 var
   List: TList;
   I: Integer;
@@ -679,7 +679,7 @@ begin
   DoPostItem(NewItem, ActiveBuffer)
 end;
 
-procedure TOpContactsDataSet.InternalSetToRecord(Buffer: PChar);
+procedure TOpContactsDataSet.InternalSetToRecord(Buffer: TRecordBuffer);
 begin
   FRecordPos := PContactRec(Buffer)^.Idx;
 end;
@@ -700,12 +700,12 @@ begin
   end;
 end;
 
-procedure TOpContactsDataSet.SetBookmarkData(Buffer: PChar; Data: Pointer);
+procedure TOpContactsDataSet.SetBookmarkData(Buffer: TRecordBuffer; Data: Pointer);
 begin
   PContactRec(Buffer)^.Idx := PInteger(Data)^;
 end;
 
-procedure TOpContactsDataSet.SetBookmarkFlag(Buffer: PChar;
+procedure TOpContactsDataSet.SetBookmarkFlag(Buffer: TRecordBuffer;
   Value: TBookmarkFlag);
 begin
   PContactRec(Buffer)^.BMFlag := Value;
@@ -892,8 +892,8 @@ class procedure TOpBaseData.CreateFieldDefsFromProps(FieldDefs: TFieldDefs);
 const
   FieldTypes: array[TTypeKind] of TFieldType = (ftUnknown, ftInteger, ftString,
     ftInteger, ftFloat, ftString, ftInteger, ftUnknown, ftUnknown,  ftString,
-    ftString, ftString, ftString, ftUnknown, ftUnknown, ftUnknown
-    {$IFNDEF VERSION3},ftInteger, ftUnknown{$ENDIF});
+    ftString, ftString, ftString, ftUnknown, ftUnknown, ftUnknown,
+    ftInteger, ftUnknown, ftUnknown, ftUnknown, ftUnknown, ftUnknown);
 var
   Cnt, I: Integer;
   PList: PPropList;

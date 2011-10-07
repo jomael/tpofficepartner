@@ -25,17 +25,15 @@
 
 {$I OPDEFINE.INC}
 
-{$IFDEF DCC6ORLATER}
   {$WARN SYMBOL_PLATFORM OFF}
-{$ENDIF}
 
 unit OpOutlk;
 
 interface
 
 uses Classes, ActiveX, OpShared, OpOlk98, 
-  OpOlkXP {$IFDEF DCC6ORLATER},                              {!!.62}
-  Variants {$ENDIF};
+  OpOlkXP,                              {!!.62}
+  Variants;
 
 type
   TOpOlItemType = (OlitMail, OlitAppointment, OlitContact, OlitTask,
@@ -1390,9 +1388,9 @@ begin
   // talking to Outlook 97.  If all fails, an exception is raised.
   if CoCreate(OpOlkXP.CLASS_Application_, _Application, Result) = S_OK then
     begin
-      if Pos('10.', Result.Version) > 0 then                         {!!.63}
+      if Pos(WideString('10.'), Result.Version) > 0 then                         {!!.63}
         FOfficeVersion := ovXP                                       {!!.63}
-      else if Pos('9.', Result.Version) > 0 then                     {!!.63}
+      else if Pos(WideString('9.'), Result.Version) > 0 then                     {!!.63}
         FOfficeVersion := ov2000
       else                                                           {!!.63}
         FOfficeVersion := ovUnknown;                                 {!!.63}

@@ -31,7 +31,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, {$IFDEF DCC6ORLATER}DesignIntf, {$ELSE} DsgnIntf, {$ENDIF} ExtCtrls,
+  StdCtrls, DesignIntf, ExtCtrls,
   ShellAPI;
 
 type

@@ -29,7 +29,7 @@ unit OpModels;
 
 interface
 
-uses Sysutils, Windows, Classes, OpShared {$IFDEF DCC6ORLATER} , Variants {$ENDIF};
+uses Sysutils, Windows, Classes, OpShared, Variants;
 
 type
   EUnsupportedMode = Exception;

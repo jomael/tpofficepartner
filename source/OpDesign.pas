@@ -25,20 +25,15 @@
 
 {$I OPDEFINE.INC}
 
-{$IFDEF DCC6ORLATER}
   {$WARN SYMBOL_DEPRECATED OFF}
-{$ENDIF}
 
 unit OpDesign;
 
 interface
 
 uses
-  {$IFDEF DCC6ORLATER}
     DesignIntf, DesignEditors, VCLEditors, RTLConsts
-  {$ELSE}
-    DsgnIntf
-  {$ENDIF}, Classes, OpShared, OpExcel, OpWord,
+, Classes, OpShared, OpExcel, OpWord,
   OpOutlk, OpPower, OpModels, Windows, TypInfo, OpMSO;
 
 

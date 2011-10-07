@@ -944,6 +944,11 @@ asm
         POP     EBX
 end;
 
+procedure OpVarClear(var V : Variant);
+begin
+  System.VarClear(V);
+end;
+
 procedure OpDispCallByID(Result: Pointer; const Dispatch: IDispatch;
   DispDesc: PDispDesc; Params: Pointer); cdecl;
 asm
@@ -1024,11 +1029,12 @@ asm
 
 @ResVariant:
         MOV     EAX,EBX
-        {$IFDEF VERSION7}
-          CALL    Variants.@VarClear
-        {$ELSE}
-          CALL    System.@VarClear
-        {$ENDIF}
+        {//$IFDEF VERSION7}
+        //  CALL    Variants.@VarClear
+        {//$ELSE}
+        //  CALL    System.@VarClear
+          CALL    OpVarClear
+        {//$ENDIF}
         MOV     EAX,[ESP]
         MOV     [EBX],EAX
         MOV     EAX,[ESP+4]

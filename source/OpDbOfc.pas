@@ -29,7 +29,7 @@ unit OpDbOfc;
 
 interface
 
-uses Sysutils, Classes, Db, OpModels {$IFDEF DCC6ORLATER}, Variants {$ENDIF} ;
+uses Sysutils, Classes, Db, OpModels, Variants;
 
 type
 

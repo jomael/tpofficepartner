@@ -25,9 +25,7 @@
 
 {$I OPDEFINE.INC}
 
-{$IFDEF DCC6ORLATER}
   {$WARN SYMBOL_PLATFORM OFF}
-{$ENDIF}
 
 {$IFDEF CBuilder}
   {$Warnings Off}

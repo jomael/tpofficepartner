@@ -741,17 +741,10 @@ begin
   FTransSpeed := Value;
   if TOpPowerPoint(FSlideComponent.RootComponent).Connected then
     case Value of
-    {$IFDEF DCC6ORLATER}
 //{!!.62}      pptsMixed: FSlideComponent.AsSlide.SlideShowTransition.Speed:= int64(ppTransitionSpeedMixed);
       pptsSlow:  FSlideComponent.AsSlide.SlideShowTransition.Speed:= int64(ppTransitionSpeedSlow);
       pptsMedium:FSlideComponent.AsSlide.SlideShowTransition.Speed:= int64(ppTransitionSpeedMedium);
       pptsFast:  FSlideComponent.AsSlide.SlideShowTransition.Speed:= int64(ppTransitionSpeedFast);
-    {$ELSE}
-//{!!.62}      pptsMixed: FSlideComponent.AsSlide.SlideShowTransition.Speed := 1; //Integer(ppTransitionSpeedMixed);
-      pptsSlow:  FSlideComponent.AsSlide.SlideShowTransition.Speed := Integer(ppTransitionSpeedSlow);
-      pptsMedium:FSlideComponent.AsSlide.SlideShowTransition.Speed := Integer(ppTransitionSpeedMedium);
-      pptsFast:  FSlideComponent.AsSlide.SlideShowTransition.Speed := Integer(ppTransitionSpeedFast);
-    {$ENDIF}
     end;
 end;
 
@@ -1129,15 +1122,9 @@ begin
   FLayoutDirection := Value;
   if (CheckActive(False,ctProperty)) then
     case Value of
-    {$IFDEF DCC6ORLATER}
       ppdMixed: AsPresentation.LayoutDirection:= Int64(ppDirectionMixed);
       ppdLeftToRight: AsPresentation.LayoutDirection:= Int64(ppDirectionLeftToRight);
       ppdRightToLeft: AsPresentation.LayoutDirection:= Int64(ppDirectionRightToLeft);
-    {$ELSE}
-      ppdMixed: AsPresentation.LayoutDirection:= Integer(ppDirectionMixed);
-      ppdLeftToRight: AsPresentation.LayoutDirection:= Integer(ppDirectionLeftToRight);
-      ppdRightToLeft: AsPresentation.LayoutDirection:= Integer(ppDirectionRightToLeft);
-    {$ENDIF}
     end;
 end;
 
