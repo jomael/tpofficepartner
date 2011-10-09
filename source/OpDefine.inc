@@ -62,3 +62,4 @@
   {$DEFINE CBuilder}
 {$ENDIF}
 
+{$WARN SYMBOL_PLATFORM OFF}
